@@ -1,0 +1,60 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Add complete TypeScript typing to a function or component, and ensure it gracefully handles null, undefined, or invalid inputs with defaults or early returns.
+globs: ["src/**/*.ts", "src/**/*.tsx"]
+alwaysApply: false
+---
+
+# 🔐 Typing + Edge Case Safety
+
+## Purpose
+
+Strengthen type safety in your code while preventing runtime crashes due to unhandled `null`, `undefined`, or unexpected values.
+
+## Guidelines
+
+- Use `z.infer<typeof schema>` when Zod schema exists
+- Add guards for `null`, `undefined`, `""`, or `NaN`
+- Favor early returns for invalid input
+- Prefer `Optional Chaining (?)` and `Nullish Coalescing (??)`
+- Don’t mutate arguments — always return new values
+
+## Example: Defensive Utility
+
+```ts
+export const getInitials = (name?: string | null): string => {
+  if (!name || typeof name !== 'string') return '??';
+
+  const parts = name.trim().split(' ');
+  const initials = parts.map((part) => part[0]?.toUpperCase()).slice(0, 2);
+  return initials.join('');
+};
+
+// getInitials('John Doe') → 'JD'
+// getInitials(null) → '??'
+
+
+## Example: Safe Component Prop
+
+interface UserCardProps {
+  user?: {
+    name?: string | null;
+    avatarUrl?: string | null;
+  };
+}
+
+const UserCard: React.FC<UserCardProps> = ({ user }) => {
+  const name = user?.name ?? 'Anonymous';
+  const avatar = user?.avatarUrl ?? '/default-avatar.png';
+
+  return (
+    <div className="flex items-center gap-2">
+      <img src={avatar} alt={name} className="w-8 h-8 rounded-full" />
+      <span>{name}</span>
+    </div>
+  );
+};

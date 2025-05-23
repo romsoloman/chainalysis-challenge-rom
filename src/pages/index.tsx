@@ -1,17 +1,28 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import Image from 'next/image';
+import { Geist, Geist_Mono } from 'next/font/google';
+import { useForm } from 'react-hook-form';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export default function Home() {
+  // React Hook Form setup
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{ firstName: string; age: number }>();
+  const onSubmit = (data: { firstName: string; age: number }) => {
+    alert(JSON.stringify(data));
+  };
+
   return (
     <div
       className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
@@ -27,15 +38,13 @@ export default function Home() {
         />
         <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
+            Get started by editing{' '}
             <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
               src/pages/index.tsx
             </code>
             .
           </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
+          <li className="tracking-[-.01em]">Save and see your changes instantly.</li>
         </ol>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
@@ -62,6 +71,52 @@ export default function Home() {
             Read our docs
           </a>
         </div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 w-full max-w-xs mt-8"
+        >
+          <label htmlFor="firstName" className="font-semibold">
+            First Name
+          </label>
+          <input
+            id="firstName"
+            {...register('firstName', { required: 'First name is required', maxLength: 30 })}
+            aria-invalid={errors.firstName ? 'true' : 'false'}
+            className="border rounded px-2 py-1"
+          />
+          {errors.firstName && (
+            <span role="alert" className="text-red-600 text-sm">
+              {errors.firstName.message || 'This is required'}
+            </span>
+          )}
+
+          <label htmlFor="age" className="font-semibold">
+            Age
+          </label>
+          <input
+            id="age"
+            type="number"
+            {...register('age', {
+              required: 'Age is required',
+              min: { value: 18, message: 'Minimum age is 18' },
+              max: { value: 99, message: 'Maximum age is 99' },
+            })}
+            aria-invalid={errors.age ? 'true' : 'false'}
+            className="border rounded px-2 py-1"
+          />
+          {errors.age && (
+            <span role="alert" className="text-red-600 text-sm">
+              {errors.age.message}
+            </span>
+          )}
+
+          <button
+            type="submit"
+            className="bg-blue-600 text-white rounded px-4 py-2 mt-2 hover:bg-blue-700"
+          >
+            Submit
+          </button>
+        </form>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a
@@ -70,13 +125,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
+          <Image aria-hidden src="/file.svg" alt="File icon" width={16} height={16} />
           Learn
         </a>
         <a
@@ -85,13 +134,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
+          <Image aria-hidden src="/window.svg" alt="Window icon" width={16} height={16} />
           Examples
         </a>
         <a
@@ -100,13 +143,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
+          <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
           Go to nextjs.org →
         </a>
       </footer>

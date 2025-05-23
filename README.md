@@ -1,40 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🧠 Crypto Threat Events Dashboard
 
-## Getting Started
+A fullstack take-home assignment simulating a threat monitoring tool built with Next.js (Pages Router), React Query, and TypeScript.
 
-First, run the development server:
+---
+
+## 🚀 Tech Stack
+
+- [x] Next.js with Pages Router
+- [x] TypeScript
+- [x] React Query
+- [x] API Routes (`/pages/api`)
+- [x] Tailwind CSS (optional)
+- [x] Zod + RHF (optional)
+- [x] Cursor rules for consistent structure
+
+---
+
+## 📋 Features Checklist
+
+### 🛠️ Project Setup
+
+- [ ] Next.js scaffolded with TypeScript
+- [ ] ESLint + Prettier configured
+- [ ] Tailwind CSS installed
+- [ ] Cursor Rules added (`.cursor/rules/`)
+
+---
+
+### 🧱 Backend – API Routes
+
+- [ ] `GET /api/events` → Return list of events
+- [ ] `GET /api/events/:id` → Return single event
+- [ ] `POST /api/events/:id/resolve` → Mark event as resolved
+
+---
+
+### 💻 Frontend – Pages & Components
+
+- [ ] `pages/dashboard.tsx` created
+- [ ] EventCard component with title, description, status
+- [ ] Loading & error states handled
+- [ ] Click → opens Event Modal (or expands view)
+- [ ] "Mark as resolved" button with optimistic update
+- [ ] React Query hooks (`useEvents`, `useEvent`, `useResolveEvent`)
+
+---
+
+### 📦 Architecture & Logic
+
+- [ ] Types (`TEvent`, `TEventResponse`, etc.)
+- [ ] `src/services/` handles all fetch logic
+- [ ] `src/hooks/` contains reusable logic
+- [ ] `src/components/` has pure UI
+- [ ] `src/types/` shared across app
+
+---
+
+### 🧪 Optional Bonus
+
+- [ ] Add Event form using Zod + RHF
+- [ ] Unit test one component using Jest + RTL
+- [ ] Use optimistic update on mutation
+
+---
+
+## 📄 How to Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.

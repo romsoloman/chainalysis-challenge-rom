@@ -1,0 +1,74 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Create a type-safe form using React Hook Form and Zod with inline validation, error handling, and typed submission logic.
+globs: ["src/components/forms/**/*.tsx"]
+alwaysApply: false
+---
+
+# 🧾 Zod + React Hook Form Boilerplate
+
+## Purpose
+
+Generate a typed, accessible form component using `react-hook-form` + `zod`. Useful for inputs, login/signup, or any structured data entry.
+
+## Guidelines
+
+- Use `zod` to define schema + infer types
+- Connect schema using `zodResolver`
+- Use controlled inputs with labels + accessibility
+- Handle errors below inputs and disable the submit button while submitting
+
+## Example
+
+```tsx
+'use client';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
+type FormData = z.infer<typeof schema>;
+
+interface LoginFormProps {
+  onSubmit: (data: FormData) => Promise<void>;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div>
+        <label htmlFor="email">Email</label>
+        <input {...register('email')} id="email" type="email" />
+        {errors.email && <p role="alert">{errors.email.message}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="password">Password</label>
+        <input {...register('password')} id="password" type="password" />
+        {errors.password && <p role="alert">{errors.password.message}</p>}
+      </div>
+
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Loading...' : 'Login'}
+      </button>
+    </form>
+  );
+};
+
+export default LoginForm;

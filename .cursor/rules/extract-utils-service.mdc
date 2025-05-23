@@ -1,0 +1,57 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Extract reusable logic into a utility or service file with full TypeScript typing, clean function design, and example usage.
+globs: ["src/utils/**/*.ts", "src/services/**/*.ts"]
+alwaysApply: false
+---
+
+# 🔁 Extract Utility / Service Logic
+
+## Purpose
+
+Extract business logic, transformation, or async fetch logic into reusable utils or services — especially to reduce repetition across components/pages.
+
+## Guidelines
+
+- Use `src/utils/` for pure functions and formatting logic
+- Use `src/services/` for data fetching or side-effectful logic
+- Always type inputs and outputs explicitly
+- Add at least one usage example (commented)
+
+## Example Output
+
+### 🔹 Utility – `/src/utils/formatDate.ts`
+
+```ts
+export const formatDate = (isoString: string): string => {
+  const date = new Date(isoString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
+
+// Example:
+// formatDate("2023-12-01T00:00:00Z") => "Dec 1, 2023"
+```
+
+### 🔹 Service – /src/services/user.service.ts
+
+```ts 
+import { TUser } from '@/types/user';
+
+export const fetchUser = async (id: string): Promise<TUser> => {
+  const res = await fetch(`/api/user/${id}`);
+  if (!res.ok) throw new Error('Failed to fetch user');
+  return res.json();
+};
+
+// Example:
+// const user = await fetchUser('123');
+```
+

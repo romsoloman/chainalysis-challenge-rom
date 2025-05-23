@@ -1,0 +1,60 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Generate a fully typed, accessible React component with default styles and optional loading/error states, adhering to Next.js best practices.
+globs: ["src/components/**/*.tsx"]
+alwaysApply: false
+---
+
+# 🧩 Component Boilerplate Rule
+
+## Purpose
+
+Create a fully typed, accessible React component with default styles and optional loading/error states, following Next.js best practices.
+
+## Guidelines
+
+- **TypeScript Integration**: Ensure type safety with explicit prop interfaces.
+- **Accessibility**: Utilize ARIA attributes like `role`, `aria-labelledby`, and `id` for better accessibility.
+- **Default Props**: Provide default values for optional props such as `isLoading` and `hasError`.
+- **Conditional Rendering**: Handle loading and error states gracefully.
+- **File Naming**: Use `PascalCase` for component filenames (e.g., `UserProfile.tsx`).
+- **Component Placement**: Place components in the `src/components/` directory.
+
+## Example
+
+```tsx
+// src/components/ComponentName.tsx
+import React from 'react';
+
+interface ComponentNameProps {
+  title: string;
+  isLoading?: boolean;
+  hasError?: boolean;
+}
+
+const ComponentName = ({
+  title,
+  isLoading = false,
+  hasError = false,
+}:ComponentNameProps) => {
+  if (isLoading) {
+    return <div role="status">Loading...</div>;
+  }
+
+  if (hasError) {
+    return <div role="alert">An error occurred.</div>;
+  }
+
+  return (
+    <section aria-labelledby="component-title">
+      <h2 id="component-title">{title}</h2>
+      {/* Component content goes here */}
+    </section>
+  );
+};
+
+export default ComponentName;

@@ -1,0 +1,63 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Documentation and usage guide for Cursor Rules used in this project, including setup structure, naming conventions, and how to trigger rules.
+globs: ["README.md"]
+alwaysApply: false
+---
+
+# 🧠 Cursor Rules – Developer Guide
+
+This file documents all Cursor Rules designed to speed up and standardize development in this project.
+
+Each rule is structured to support consistent architecture, clean code, and fast execution using the Next.js **Pages Router** + TypeScript + Tailwind + React Query + Zod.
+
+---
+
+## 📁 Folder Structure
+
+We follow a modular convention:
+
+src/
+├── components/ # Reusable UI
+├── pages/ # Next.js routing
+├── services/ # API fetch logic
+├── utils/ # Generic utilities
+├── hooks/ # Custom React hooks
+├── context/ # Global state
+├── types/ # Shared types
+├── constants/ # Static config
+└── styles/ # Global + Tailwind
+
+
+---
+
+## 🚀 Available Rules
+
+| Rule Name                  | Trigger Phrase            | Purpose |
+|---------------------------|---------------------------|---------|
+| Component Boilerplate      | `component boilerplate`   | Typed, accessible React component with optional loading/error |
+| API + React Query Hook     | `api react hook`          | Create typed API + hook pair |
+| Form with Zod Validation   | `zod form`                | Controlled form with schema validation |
+| Tailwind Styling Helper    | `style with tailwind`     | Suggest clean, responsive Tailwind classes |
+| Utility / Service Extract  | `extract to util/service` | Pull logic to reusable function |
+| Typing + Safety Guarding   | `add types and fallback`  | Add TypeScript types and handle null/undefined |
+
+---
+
+## 🛠 How to Use
+
+1. Inside any file, **type the trigger phrase** (e.g., `component boilerplate`)
+2. Cursor will recognize it and show the rule in the side panel
+3. Apply the rule → edit the template inline
+
+---
+
+## 📌 Notes
+
+- Rules were designed with take-home productivity in mind: minimal boilerplate, fully typed, production-safe
+- You can add new rules under `.cursor/rules/` with `.mdc` files at any time
+
